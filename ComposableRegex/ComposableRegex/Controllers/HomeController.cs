@@ -24,7 +24,7 @@ namespace ComposableRegex.Controllers
                 try
                 {
                     regex.TransformedRegex = new Regexer(regex.ComposableRegex).Regex;
-                    regex.IsMatch = Regex.IsMatch(regex.TargetText, regex.TransformedRegex);
+                    regex.IsMatch = !String.IsNullOrEmpty(regex.TargetText) && Regex.IsMatch(regex.TargetText, regex.TransformedRegex);
 
                     return View(regex);
                 }
