@@ -1,0 +1,58 @@
+﻿@model ComposableRegex.Models.HomeModel
+
+@{
+    ViewBag.Title = "Composable Regexes";
+}
+
+<div class="blogText">
+    Visit the <a href="http://onoffswitch.net">blog</a> for full explanation! 
+</div>
+
+@using (Html.BeginForm())
+{
+    <fieldset>
+        <legend></legend>
+        <div class="input">
+            <h4>Composable Regexes</h4>
+            
+                <div class="unit group">
+                    <div class="label">
+                        @Html.LabelFor(m => m.ComposableRegex)
+                    </div>
+                    <div class="content">
+                        @Html.TextAreaFor(m => m.ComposableRegex, new { @cols = 80, @rows = 10 })          
+                    </div>      
+                </div>
+                
+                <div class="unit group">
+                    <div class="label">
+                        @Html.LabelFor(m => m.TargetText)     
+                    </div>
+                    <div class="content">
+                        @Html.TextBoxFor(m => m.TargetText, new { @class = "displayText" })       
+                    </div>      
+                </div>
+                
+                <div class="unit group">
+                    <div class="label ">
+                         @Html.LabelFor(m => m.TransformedRegex)        
+                    </div>
+                    <div class="content transformedRegex">
+                        @Html.DisplayFor(m => m.TransformedRegex)  
+                    </div>
+                 </div>
+               
+               <div class="unit group">
+                    <div class="label">
+                         @Html.LabelFor(m => m.IsMatch)     
+                    </div>
+                    <div class="content">
+                        @Html.DisplayTextFor(m => m.IsMatch) 
+                    </div>
+                 </div>
+               
+        </div>
+    </fieldset>
+    
+    <input type="submit" />
+}
