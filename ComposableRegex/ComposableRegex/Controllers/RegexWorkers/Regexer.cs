@@ -13,6 +13,8 @@ namespace ComposableRegex.Controllers.RegexWorkers
 
         public List<TreeData> Groups { get; private set; }
 
+        public String Final { get; private set; }
+
         public Regexer(string regex, bool includesComments = true, bool useDebug = true)
         {
             if (String.IsNullOrEmpty(regex))
@@ -44,9 +46,9 @@ namespace ComposableRegex.Controllers.RegexWorkers
                           let regexWithoutComments = includeComments ? value.Split(new[] { "##" }, 2, StringSplitOptions.RemoveEmptyEntries).First().Trim() : value
                           select new TreeData { Key = key, Value = regexWithoutComments }).ToList();
 
-            var final = splits.Last().Trim();
+            Final = splits.Last().Trim();
 
-            Regex = final;
+            Regex = Final;
 
             for (int i = Groups.Count - 1; i >= 0; i--)
             {

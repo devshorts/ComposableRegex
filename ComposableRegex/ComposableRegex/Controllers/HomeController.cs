@@ -88,9 +88,14 @@ domain = (comAddresses|ipv6|ipv4)$ ## this has to be at the end
         [HttpPost]
         public ActionResult RegexTree(string composedRegex)
         {
+            var composed = new Regexer(composedRegex);
             return new JsonResult
                    {
-                       Data = (new Regexer(composedRegex).Groups)
+                       Data = new
+                              {
+                                   groups = composed.Groups,
+                                   final = composed.Final
+                              }
                    };
         }
     }
