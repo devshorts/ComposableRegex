@@ -56,7 +56,7 @@
                 <div class="content transformedRegex">
                     @Html.DisplayFor(m => m.TransformedRegex)  
                     
-                    <ul class="trace">
+                    <ol class="trace">
                         @if (Model != null && Model.Trace != null)
                         {
                             foreach (var trace in Model.Trace)
@@ -64,7 +64,7 @@
                                 <li>@trace</li>
                             }
                         }
-                    </ul>
+                    </ol>
                 </div>
             </div>
                

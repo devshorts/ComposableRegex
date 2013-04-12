@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using ComposableRegex.Models;
 
 namespace ComposableRegex.Controllers.RegexWorkers
 {
@@ -9,6 +10,8 @@ namespace ComposableRegex.Controllers.RegexWorkers
         public String Regex { get; private set; }
 
         public List<String> DebugTrace { get; private set; }
+
+        public List<TreeData> Groups { get; private set; }
 
         public Regexer(string regex, bool includesComments = true, bool useDebug = true)
         {
@@ -31,7 +34,7 @@ namespace ComposableRegex.Controllers.RegexWorkers
                 return;
             }
 
-            var groups = (from item in splits.Take(splits.Count() - 1)
+            Groups = (from item in splits.Take(splits.Count() - 1)
                           where !item.StartsWith("##")
                           let keyValueSplit = item.Split(new[] { '=' }, 2, StringSplitOptions.RemoveEmptyEntries)
                           let key = keyValueSplit.First().Trim()
@@ -39,15 +42,15 @@ namespace ComposableRegex.Controllers.RegexWorkers
                           where !String.IsNullOrEmpty(key)
                           where !String.IsNullOrEmpty(value)
                           let regexWithoutComments = includeComments ? value.Split(new[] { "##" }, 2, StringSplitOptions.RemoveEmptyEntries).First().Trim() : value
-                          select new { Key = key, Value = regexWithoutComments }).ToList();
+                          select new TreeData { Key = key, Value = regexWithoutComments }).ToList();
 
             var final = splits.Last().Trim();
 
             Regex = final;
 
-            for (int i = groups.Count - 1; i >= 0; i--)
+            for (int i = Groups.Count - 1; i >= 0; i--)
             {
-                var item = groups[i];
+                var item = Groups[i];
                 Regex = Regex.Replace(item.Key, item.Value);
                 if (useDebug)
                 {

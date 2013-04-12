@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Web.Mvc;
 using ComposableRegex.Controllers.RegexWorkers;
@@ -82,6 +83,15 @@ domain = (comAddresses|ipv6|ipv4)$ ## this has to be at the end
                 }
             }
             return Index();
+        }
+
+        [HttpPost]
+        public ActionResult RegexTree(string composedRegex)
+        {
+            return new JsonResult
+                   {
+                       Data = (new Regexer(composedRegex).Groups)
+                   };
         }
     }
 }
