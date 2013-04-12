@@ -11,9 +11,51 @@ namespace ComposableRegex.Controllers
         //
         // GET: /Home/
 
+        private static HomeModel DefaultMode
+        {
+            get
+            {
+                return new HomeModel
+                       {
+                           ComposableRegex = @"## 
+## This composable sample block validates an email address
+## and validates all sorts of weird edge case emails as well
+##
+
+weirdChars = (!|-|\+|\\|\$|\^|~|#|%|\?|{|}|_|/|=)
+numbers = \d
+characters = [A-z]
+anyChars = (weirdChars|numbers|characters)
+
+lettersFollowedBySingleDot = (anyChars+\.anyChars+)
+
+names = anyChars|lettersFollowedBySingleDot
+
+onlyQuotableCharacters = @|\s
+quotedNames = ""(names|onlyQuotableCharacters)+""
+
+anyValidStart = (names|quotedNames)+
+
+group = (quotedNames:anyValidStart)|anyValidStart
+
+local = ^(group)
+
+ipv4 = ((\d{1,3}.){3}(\d{1,3}))
+
+ipv6Entry = ([a-f]|[A-F]|[0-9]){4}? ## group of 4 hex values
+ipv6 = ((ipv6Entry:){7}?ipv6Entry) ## 8 groups of ipv6 entries
+
+comAddresses = (characters+(\.characters+)*) ## stuff like a.b.c.d etc
+domain = (comAddresses|ipv6|ipv4)$ ## this has to be at the end
+
+(local)@(domain)"
+                       };
+            }
+        }
+
         public ActionResult Index()
         {
-            return View(new HomeModel());
+            return View(DefaultMode);
         }
 
         [HttpPost]

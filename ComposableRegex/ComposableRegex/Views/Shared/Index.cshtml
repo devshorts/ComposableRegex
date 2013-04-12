@@ -63,11 +63,13 @@
         </div>
         
         <div class="example">
-            Build out composable regex using the format where the last line is the final regex to use. <br/><br/>
+            Build out composable regex using the format where the last line is the final regex to use. Comments can be at the start of lines using ## or at the end of lines using ##. <br/><br/>
             <div class="code">
-                key = value<br/>                
+                key = value ## this is a comment<br/>                
                 key1 = value1<br/>                
                 <br/>                
+                <br/>## this is a comment. the final aggregated regex is the last line of the expression. whitespace is stripped
+                <br/>
                 key|key1
             </div>
             

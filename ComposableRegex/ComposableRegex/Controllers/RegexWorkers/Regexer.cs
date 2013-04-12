@@ -26,6 +26,7 @@ namespace ComposableRegex.Controllers.RegexWorkers
             }
 
             var groups = (from item in splits.Take(splits.Count() - 1)
+                          where !item.StartsWith("##")
                           let keyValueSplit = item.Split(new[] { '=' }, 2, StringSplitOptions.RemoveEmptyEntries)
                           let key = keyValueSplit.First().Trim()
                           let value = keyValueSplit.Last().Trim()
