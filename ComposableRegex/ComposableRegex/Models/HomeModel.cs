@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace ComposableRegex.Models
@@ -15,5 +16,7 @@ namespace ComposableRegex.Models
         public string TransformedRegex { get; set; }
 
         public Boolean IsMatch { get; set; }
+
+        public List<String> Trace { get; set; }
     }
 }

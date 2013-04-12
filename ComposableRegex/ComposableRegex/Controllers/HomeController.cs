@@ -65,8 +65,10 @@ domain = (comAddresses|ipv6|ipv4)$ ## this has to be at the end
             {
                 try
                 {
-                    regex.TransformedRegex = new Regexer(regex.ComposableRegex).Regex;
+                    var composed = new Regexer(regex.ComposableRegex);
+                    regex.TransformedRegex = composed.Regex;
                     regex.IsMatch = !String.IsNullOrEmpty(regex.TargetText) && Regex.IsMatch(regex.TargetText, regex.TransformedRegex);
+                    regex.Trace = composed.DebugTrace;
 
                     return View(regex);
                 }

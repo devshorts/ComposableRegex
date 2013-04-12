@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace ComposableRegex.Controllers.RegexWorkers
@@ -7,16 +8,21 @@ namespace ComposableRegex.Controllers.RegexWorkers
     {
         public String Regex { get; private set; }
 
-        public Regexer(string regex, bool includesComments = true)
+        public List<String> DebugTrace { get; private set; }
+
+        public Regexer(string regex, bool includesComments = true, bool useDebug = true)
         {
             if (String.IsNullOrEmpty(regex))
             {
                 throw new ArgumentNullException("regex", "Regex cannot be null");
             }
-            Parse(regex, includesComments);
+
+            DebugTrace = new List<string>();
+
+            Parse(regex, includesComments, useDebug);
         }
 
-        private void Parse(string regex, bool includeComments)
+        private void Parse(string regex, bool includeComments, bool useDebug)
         {
             var splits = regex.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
             if (splits.Count() == 1)
@@ -43,6 +49,10 @@ namespace ComposableRegex.Controllers.RegexWorkers
             {
                 var item = groups[i];
                 Regex = Regex.Replace(item.Key, item.Value);
+                if (useDebug)
+                {
+                    DebugTrace.Add(Regex);
+                }
             }
         }
     }

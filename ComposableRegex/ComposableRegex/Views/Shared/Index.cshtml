@@ -40,17 +40,7 @@
                     @Html.TextAreaFor(m => m.TargetText, new { @cols = 80, @rows = 10 })       
                 </div>      
             </div>
-                
-            <div class="unit group">
-                <div class="label ">
-                    @Html.LabelFor(m => m.TransformedRegex)        
-                </div>
-                <div class="content transformedRegex">
-                    @Html.DisplayFor(m => m.TransformedRegex)  
-                </div>
-            </div>
-               
-            <div class="unit group">
+             <div class="unit group">
                 <div class="label">
                     @Html.LabelFor(m => m.IsMatch)     
                 </div>
@@ -58,6 +48,27 @@
                     @Html.DisplayTextFor(m => m.IsMatch) 
                 </div>
             </div>
+                
+            <div class="unit group">
+                <div class="label ">
+                    @Html.LabelFor(m => m.TransformedRegex)         
+                </div>
+                <div class="content transformedRegex">
+                    @Html.DisplayFor(m => m.TransformedRegex)  
+                    
+                    <ul class="trace">
+                        @if (Model != null && Model.Trace != null)
+                        {
+                            foreach (var trace in Model.Trace)
+                            {
+                                <li>@trace</li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+               
+           
               
                    
         </div>
