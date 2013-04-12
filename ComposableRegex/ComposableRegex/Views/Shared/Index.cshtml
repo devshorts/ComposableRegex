@@ -28,7 +28,7 @@
                     @Html.LabelFor(m => m.ComposableRegex)
                 </div>
                 <div class="content">
-                    @Html.TextAreaFor(m => m.ComposableRegex, new { @cols = 80, @rows = 10 })          
+                    @Html.TextAreaFor(m => m.ComposableRegex, new { @cols = 80, @rows = 10 ,@id="codeTextArea"})          
                 </div>      
             </div>
                 
@@ -76,5 +76,9 @@
         </div>
     </fieldset>
     <input type="submit" />
+    
+    <script>
+        var editor = CodeMirror.fromTextArea(document.getElementById("codeTextArea"), {});
+    </script>
 
 }
